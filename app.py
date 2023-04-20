@@ -220,7 +220,7 @@ def init():
     repo = 'spaceinvader/fb'
     scheduler = DPMSolverMultistepScheduler.from_pretrained(repo, subfolder="scheduler")
     model = DiffusionPipeline.from_pretrained(repo, torch_dtype=torch.float16, revision="main", scheduler=scheduler).to("cuda")
-    model.safety_checker = dummy_checker
+#     model.safety_checker = dummy_checker
 
 def inference(model_inputs:dict):
     global model
@@ -231,13 +231,15 @@ def inference(model_inputs:dict):
     steps = model_inputs.get('steps', 20)
     guidance_scale = model_inputs.get('guidance_scale', 7.5)
     seed = model_inputs.get('seed', None)
+    
+    model.safety_checker = dummy_checker
 
     if not prompt: return {'message': 'No prompt was provided'}
     
     generator = None
     if seed: generator = torch.Generator("cuda").manual_seed(seed)
 
-#     model.safety_checker = dummy_checker
+    
 
 
     
