@@ -236,7 +236,7 @@ def inference(model_inputs:dict):
     generator = None
     if seed: generator = torch.Generator("cuda").manual_seed(seed)
 
-    model.safety_checker = dummy_checker
+#     model.safety_checker = dummy_checker
 
 
     
